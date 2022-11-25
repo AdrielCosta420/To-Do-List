@@ -108,6 +108,39 @@ class HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            const Divider(
+              color: Colors.white,
+              thickness: 0.2,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.blue,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(elevation: 0),
+                child: const Text(
+                  'nova lista',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {},
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(elevation: 0),
+                child: const Text(
+                  'Criar nova lista',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),

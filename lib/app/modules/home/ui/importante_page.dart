@@ -16,7 +16,7 @@ class _ImportantePageState extends State<ImportantePage> {
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new_outlined,
             color: Color.fromARGB(255, 194, 103, 212),
           ),
@@ -53,7 +53,7 @@ class _ImportantePageState extends State<ImportantePage> {
               style: TextStyle(
                 color: Color.fromARGB(255, 194, 103, 212),
                 fontSize: 15,
-                 ),
+              ),
             )
           ],
         ),

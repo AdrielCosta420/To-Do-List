@@ -116,27 +116,59 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Colors.blue,
+        color: Colors.black,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               flex: 1,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(elevation: 0),
-                child: const Text(
-                  'nova lista',
-                  style: TextStyle(fontSize: 20),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          
+                          title: const Text('Criar nova lista'),
+                          backgroundColor: Colors.white,
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('criar'),
+                            )
+                          ],
+                        );
+                      });
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white54,
+                  size: 30,
                 ),
-                onPressed: () {},
+                label: const Text(
+                  'Nova lista',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white54,
+                  ),
+                ),
+                backgroundColor: Colors.black,
               ),
             ),
             Expanded(
               flex: 1,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(elevation: 0),
-                child: const Text(
-                  'Criar nova lista',
-                  style: TextStyle(fontSize: 20),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, backgroundColor: Colors.black),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 90),
+                  child: Icon(
+                    Icons.delete_outline_outlined,
+                    color: Colors.red,
+                  ),
                 ),
                 onPressed: () {},
               ),

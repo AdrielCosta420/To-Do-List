@@ -44,8 +44,8 @@ class _ImportantePageState extends State<ImportantePage> {
               ],
             ),
             SizedBox(
-              height: 400,
-              width: 400,
+              height: 350,
+              width: 350,
               child: Image.asset('assets/images/list.png'),
             ),
             const Text(

@@ -1,18 +1,23 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:to_do_app/app/modules/home/home_store.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/app/modules/home/ui/atribuido_a_mim_page.dart';
 import 'package:to_do_app/app/modules/home/ui/importante_page.dart';
 import 'package:to_do_app/app/modules/home/ui/meu_dia_page.dart';
+import 'package:to_do_app/app/modules/home/ui/planejado_page.dart';
+import 'package:to_do_app/app/modules/home/ui/tarefas_page.dart';
 import 'package:to_do_app/app/modules/home/widgets/list_tile_custom_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
 
-  String nome = 'Adriel';
-  HomePage({Key? key, this.title = 'HomePage'}) : super(key: key);
+  const HomePage({Key? key, this.title = 'HomePage'}) : super(key: key);
   @override
   HomePageState createState() => HomePageState();
 }
+
+final TextEditingController todoController = TextEditingController();
+List<String> todos = [];
 
 class HomePageState extends State<HomePage> {
   final HomeStore store = Modular.get();
@@ -84,7 +89,7 @@ class HomePageState extends State<HomePage> {
               title: 'Planejado',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => const MeuDiaPage(),
+                  builder: (_) => PlanejadoPage(),
                 ),
               ),
             ),
@@ -94,7 +99,7 @@ class HomePageState extends State<HomePage> {
               title: 'Atríbuido a mim',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => const MeuDiaPage(),
+                  builder: (_) => const AtribuidoAMimPage(),
                 ),
               ),
             ),
@@ -104,7 +109,7 @@ class HomePageState extends State<HomePage> {
               title: 'Tarefas',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => const MeuDiaPage(),
+                  builder: (_) => const TarefasPage(),
                 ),
               ),
             ),
@@ -128,17 +133,48 @@ class HomePageState extends State<HomePage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          
-                          title: const Text('Criar nova lista'),
+                          title: const Text('Nova lista'),
                           backgroundColor: Colors.white,
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                clearText();
                               },
-                              child: const Text('criar'),
-                            )
+                              child: const Text(
+                                'cancelar',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                String text = todoController.text;
+                                setState(() {
+                                  todos.add(text);
+                                  clearText();
+                                });
+                              },
+                              
+                              child: const Text(
+                                'criar',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ],
+                          content: TextFormField(
+                            controller: todoController,
+                            decoration: const InputDecoration(
+                              labelText: 'Inserir o título da lista',
+                              icon: Icon(
+                                Icons.add_reaction_outlined,
+                                color: Colors.purple,
+                              ),
+                            ),
+                          ),
+                          
                         );
                       });
                 },
@@ -177,6 +213,10 @@ class HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void clearText() {
+    todoController.clear();
   }
 }
 

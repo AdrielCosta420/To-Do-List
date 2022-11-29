@@ -1,5 +1,5 @@
 import 'package:to_do_app/app/modules/home/home_page.dart';
-import 'package:to_do_app/app/modules/home/home_store.dart';
+import 'package:to_do_app/app/modules/home/controllers/home_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module {

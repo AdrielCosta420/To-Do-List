@@ -46,15 +46,15 @@ class _PlanejadoPageState extends State<PlanejadoPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 120),
+              padding: const EdgeInsets.only(top: 70),
               child: SizedBox(
-                height: 400,
-                width: 400,
-                child: Image.asset('assets/images/op2.png'),
+                height: 280,
+                width: 280,
+                child: Image.asset('assets/images/planejadolist.png'),
               ),
             ),
             Text(
-              'As tarefas com datas de \n conclusão ou lembretes \n aparecem aqui',
+              'As tarefas com datas de \n conclusão ou lembretes \n aparecem aqui.',
               style: TextStyle(
                 color: colorsPlanejado,
                 fontSize: 15,

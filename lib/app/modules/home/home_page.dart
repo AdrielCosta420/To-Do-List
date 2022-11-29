@@ -1,7 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_app/app/modules/home/home_store.dart';
+import 'package:to_do_app/app/modules/home/controllers/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/app/modules/home/ui/atribuido_a_mim_page.dart';
+import 'package:to_do_app/app/modules/home/ui/icon_pesquisar_page.dart';
 import 'package:to_do_app/app/modules/home/ui/importante_page.dart';
 import 'package:to_do_app/app/modules/home/ui/meu_dia_page.dart';
 import 'package:to_do_app/app/modules/home/ui/planejado_page.dart';
@@ -59,7 +60,11 @@ class HomePageState extends State<HomePage> {
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.search),
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const IconPesquisarPage(),
+                  ),
+                ),
                 color: Colors.white,
               ),
             ),
@@ -155,11 +160,10 @@ class HomePageState extends State<HomePage> {
                                   clearText();
                                 });
                               },
-                              
                               child: const Text(
                                 'criar',
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -174,7 +178,6 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          
                         );
                       });
                 },

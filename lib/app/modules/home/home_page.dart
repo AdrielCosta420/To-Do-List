@@ -1,13 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:to_do_app/app/modules/home/controllers/home_store.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_app/app/modules/home/ui/atribuido_a_mim_page.dart';
-import 'package:to_do_app/app/modules/home/ui/icon_pesquisar_page.dart';
-import 'package:to_do_app/app/modules/home/ui/importante_page.dart';
-import 'package:to_do_app/app/modules/home/ui/meu_dia_page.dart';
-import 'package:to_do_app/app/modules/home/ui/planejado_page.dart';
-import 'package:to_do_app/app/modules/home/ui/tarefas_page.dart';
-import 'package:to_do_app/app/modules/home/widgets/list_tile_custom_widget.dart';
+import 'ui/atribuido_a_mim_page.dart';
+import 'ui/icon_pesquisar_page.dart';
+import 'ui/importante_page.dart';
+import 'ui/meu_dia_page.dart';
+import 'ui/planejado_page.dart';
+import 'ui/tarefas_page.dart';
+import 'widgets/list_tile_custom_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -152,6 +152,12 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                             TextButton(
+                              child: const Text(
+                                'criar',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 String text = todoController.text;
@@ -160,12 +166,6 @@ class HomePageState extends State<HomePage> {
                                   clearText();
                                 });
                               },
-                              child: const Text(
-                                'criar',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             ),
                           ],
                           content: TextFormField(

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "236746915650",
+    "project_id": "to-do-tasks-5966b",
+    "storage_bucket": "to-do-tasks-5966b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236746915650:android:15f45022ab4aadf37312db",
+        "android_client_info": {
+          "package_name": "br.com.adriel.to_do_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236746915650-gpmj34v5i60r94affsn9qsjcu4jm5svi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5IXe2DqXEPtpIkfHjz06h15DPT00rTYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236746915650-gpmj34v5i60r94affsn9qsjcu4jm5svi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236746915650:android:07a807f28030e44d7312db",
+        "android_client_info": {
+          "package_name": "com.adriel.to_do_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236746915650-gpmj34v5i60r94affsn9qsjcu4jm5svi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5IXe2DqXEPtpIkfHjz06h15DPT00rTYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236746915650-gpmj34v5i60r94affsn9qsjcu4jm5svi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -133,54 +133,7 @@ class HomePageState extends State<HomePage> {
             Expanded(
               flex: 1,
               child: FloatingActionButton.extended(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Nova lista'),
-                          backgroundColor: Colors.white,
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                clearText();
-                              },
-                              child: const Text(
-                                'cancelar',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ),
-                            TextButton(
-                              child: const Text(
-                                'criar',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                String text = todoController.text;
-                                setState(() {
-                                  todos.add(text);
-                                  clearText();
-                                });
-                              },
-                            ),
-                          ],
-                          content: TextFormField(
-                            controller: todoController,
-                            decoration: const InputDecoration(
-                              labelText: 'Inserir o título da lista',
-                              icon: Icon(
-                                Icons.add_reaction_outlined,
-                                color: Colors.purple,
-                              ),
-                            ),
-                          ),
-                        );
-                      });
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.add,
                   color: Colors.white54,
@@ -221,21 +174,5 @@ class HomePageState extends State<HomePage> {
   void clearText() {
     todoController.clear();
   }
-}
-
-
-/*
-appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: Colors.black,
-        title: Text(widget.title),
-        leading: const CircleAvatar(
-          backgroundColor: Color.fromARGB(255, 19, 173, 219),
-          radius: 25,
-          child: Icon(
-            Icons.person,
-            color: Colors.white,
-          ),
-        ),
-      )
-      */
+} 
+      

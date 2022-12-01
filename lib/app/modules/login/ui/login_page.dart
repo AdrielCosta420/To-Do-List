@@ -10,171 +10,283 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late bool _passwordVisible;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
+  }
+
+  final controllerSenha = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color.fromARGB(255, 124, 98, 219),
-              Color.fromARGB(186, 43, 190, 175),
-            ],
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50, left: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'Bem vindo',
-                    style: GoogleFonts.lobster(
-                      color: Colors.white,
-                      fontSize: 50,
-                      //fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [
+                Color.fromARGB(255, 124, 98, 219),
+                Color.fromARGB(186, 43, 190, 175),
+                Color.fromARGB(255, 124, 98, 219),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(11),
-              child: Column(
-                children: [
-                  Card(
-                    elevation: 10,
-                    color: Color.fromARGB(131, 0, 0, 0),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 80, left: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Bem vindo',
+                      style: GoogleFonts.adamina(
+                        letterSpacing: 1,
+                        color: Colors.white,
+                        fontSize: 40,
+                        shadows: const [
+                          Shadow(
+                            offset: Offset(0.9, 0.9),
+                            blurRadius: 2,
+                            color: Colors.black,
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 15, right: 30, left: 20, top: 15),
-                          child: TextFormField(
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: 'ex: adriel@teste.com',
-                              hintStyle: TextStyle(color: Colors.white30),
-                              label: Text(
-                                'EMAIL',
-                                style: TextStyle(
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(11),
+                child: Column(
+                  children: [
+                    Card(
+                      margin: const EdgeInsets.only(bottom: 60),
+                      elevation: 10,
+                      color: const Color.fromARGB(6, 0, 0, 0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 15, right: 30, left: 20, top: 35),
+                            child: TextFormField(
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              decoration: const InputDecoration(
+                                focusColor: Colors.yellow,
+                                focusedBorder: OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.red),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                hintText: 'ex: adriel@teste.com',
+                                hintStyle: TextStyle(color: Colors.white30),
+                                label: Text(
+                                  'Email',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icon: Icon(
+                                  Icons.login,
                                   color: Colors.white,
                                 ),
                               ),
-                              icon: Icon(
-                                Icons.login,
-                                color: Color(0xFF6a3ffa),
-                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 15, right: 30, left: 20, top: 15),
-                          child: TextFormField(
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: 'ex: ********',
-                              hintStyle: TextStyle(color: Colors.white30),
-                              label: Text(
-                                'SENHA',
-                                style: TextStyle(
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 15, right: 30, left: 20, top: 15),
+                            child: TextFormField(
+                              controller: controllerSenha,
+                              obscureText: !_passwordVisible,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                focusColor: Colors.yellow,
+                                focusedBorder: const OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.yellow),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                border: const OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                disabledBorder: const OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                hintText: 'ex: ********',
+                                hintStyle:
+                                    const TextStyle(color: Colors.white30),
+                                label: const Text(
+                                  'Senha',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icon: const Icon(
+                                  Icons.password,
                                   color: Colors.white,
                                 ),
-                              ),
-                              icon: Icon(
-                                Icons.password,
-                                color: Color(0xFF6a3ffa),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordVisible
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6a3ffa),
-                            shape: const RoundedRectangleBorder(
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            width: 300,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(22),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () => Modular.to.pushNamed('/home/'),
+                              child: const Text(
+                                'ENTRAR',
+                                style: TextStyle(
+                                  color: Color.fromARGB(225, 0, 0, 0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(22),
                               ),
                             ),
-                          ),
-                          onPressed: () => Modular.to.pushNamed('/home/'),
-                          child: const Text('ENTRAR'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          child: Text(
-                            'Esqueceu sua senha?',
-                            style: GoogleFonts.adamina(
-                              color: Colors.white,
-                              fontSize: 15,
-                              // fontWeight: FontWeight.w600,
+                            child: Container(
+                              width: 150,
+                              height: 40,
+                              child: TextButton(
+                                child: const Text(
+                                  'Cadastrar-se',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(137, 0, 0, 0),
+                                    fontSize: 18,
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                onPressed: () =>
+                                    Modular.to.pushNamed('/cadastro/'),
+                              ),
                             ),
                           ),
-                          onPressed: () {},
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF6a3ffa),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25),
-                            ),
-                          ),
-                          child: TextButton(
-                            child: Text(
-                              'Cadastrar-se',
-                              style: GoogleFonts.adamina(
+                          TextButton(
+                            child: const Text(
+                              'Esqueceu sua senha?',
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontWeight: FontWeight.w700,
+                                // fontWeight: FontWeight.w600,
                               ),
                             ),
                             onPressed: () {},
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  /* Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      
-                    ],
-                  ),*/
-                ],
+                    /* Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        
+                      ],
+                    ),*/
+                  ],
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  'Criado e desenvolvido por Adriel',
-                  style: GoogleFonts.macondo(color: Colors.white),
-                )
-              ],
-            )
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'Criado e desenvolvido por Adriel',
+                    style: GoogleFonts.macondo(color: Colors.white),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

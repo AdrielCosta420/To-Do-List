@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:string_validator/string_validator.dart' as validate;
+import 'package:to_do_app/app/modules/cadastro/controllers/cadastro_store.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({
@@ -13,16 +15,7 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
-  late bool _passwordVisible;
-  late bool _confirmPasswordVisible;
-
-  @override
-  void initState() {
-    _passwordVisible = false;
-    _confirmPasswordVisible = false;
-    super.initState();
-  }
-
+  final CadastroStore store = Modular.get();
   final controllerSenha = TextEditingController();
   final controllerRepeteSenha = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -85,9 +78,9 @@ class _CadastroPageState extends State<CadastroPage> {
                           Radius.circular(20),
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Form(
+                      child: Observer(
+                        builder: (context) {
+                          return Form(
                             key: formKey,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
@@ -162,7 +155,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                       bottom: 15, right: 30, left: 20, top: 15),
                                   child: TextFormField(
                                     keyboardType: TextInputType.visiblePassword,
-                                    obscureText: !_passwordVisible,
+                                    obscureText: store.passwordVisible.value,
                                     validator: (value) {
                                       if (value!.length < 6) {
                                         return 'Senha muito curta!';
@@ -174,147 +167,151 @@ class _CadastroPageState extends State<CadastroPage> {
                                       color: Colors.white,
                                     ),
                                     decoration: InputDecoration(
-                                        focusColor: Colors.yellow,
-                                        focusedBorder: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.yellow),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
+                                      focusColor: Colors.yellow,
+                                      focusedBorder: const OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.yellow),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
                                         ),
-                                        border: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
+                                      ),
+                                      border: const OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
                                         ),
-                                        disabledBorder:
-                                            const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
+                                      ),
+                                      disabledBorder: const OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
                                         ),
-                                        enabledBorder: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
                                         ),
-                                        hintText: 'ex: ********',
-                                        hintStyle: const TextStyle(
-                                            color: Colors.white30),
-                                        label: const Text(
-                                          'Senha',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        icon: const Icon(
-                                          Icons.password,
+                                      ),
+                                      hintText: 'ex: ********',
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white30),
+                                      label: const Text(
+                                        'Senha',
+                                        style: TextStyle(
                                           color: Colors.white,
                                         ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _passwordVisible =
-                                                  !_passwordVisible;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            _passwordVisible
-                                                ? Icons.visibility_outlined
-                                                : Icons.visibility_off_outlined,
-                                            color: Colors.white,
-                                          ),
-                                        )),
+                                      ),
+                                      icon: const Icon(
+                                        Icons.password,
+                                        color: Colors.white,
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          store.passwordVisibleChange();
+                                        },
+                                        icon: Icon(
+                                          store.passwordVisible.value
+                                              ? Icons.visibility_off_outlined
+                                              : Icons.visibility_outlined,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 15, right: 30, left: 20, top: 15),
-                                  child: TextFormField(
-                                    obscureText: !_confirmPasswordVisible,
-                                    controller: controllerRepeteSenha,
-                                    validator: (value) {
-                                      if (controllerSenha.text !=
-                                          controllerRepeteSenha.text) {
-                                        return 'As senhas não conferem!';
-                                      }
-                                      return null;
-                                    },
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                    decoration: InputDecoration(
-                                        focusColor: Colors.yellow,
-                                        focusedBorder: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.yellow),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                        ),
-                                        border: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                        ),
-                                        disabledBorder:
-                                            const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                        ),
-                                        enabledBorder: const OutlineInputBorder(
-                                          gapPadding: 20,
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(20),
-                                          ),
-                                        ),
-                                        hintText: 'ex: ********',
-                                        hintStyle: const TextStyle(
-                                            color: Colors.white30),
-                                        label: const Text(
-                                          'Repita sua senha',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        icon: const Icon(
-                                          Icons.password,
+                                  child: Observer(
+                                    builder: (_) {
+                                      return TextFormField(
+                                        obscureText:
+                                            store.confirmPasswordVisible.value,
+                                        controller: controllerRepeteSenha,
+                                        validator: (value) {
+                                          if (controllerSenha.text !=
+                                              controllerRepeteSenha.text) {
+                                            return 'As senhas não conferem!';
+                                          }
+                                          return null;
+                                        },
+                                        style: const TextStyle(
                                           color: Colors.white,
                                         ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _confirmPasswordVisible =
-                                                  !_confirmPasswordVisible;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            _confirmPasswordVisible
-                                                ? Icons.visibility_outlined
-                                                : Icons.visibility_off_outlined,
+                                        decoration: InputDecoration(
+                                          focusColor: Colors.yellow,
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                            gapPadding: 20,
+                                            borderSide: BorderSide(
+                                                color: Colors.yellow),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                          ),
+                                          border: const OutlineInputBorder(
+                                            gapPadding: 20,
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                          ),
+                                          disabledBorder:
+                                              const OutlineInputBorder(
+                                            gapPadding: 20,
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                          ),
+                                          enabledBorder:
+                                              const OutlineInputBorder(
+                                            gapPadding: 20,
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                          ),
+                                          hintText: 'ex: ********',
+                                          hintStyle: const TextStyle(
+                                              color: Colors.white30),
+                                          label: const Text(
+                                            'Repita sua senha',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          icon: const Icon(
+                                            Icons.password,
                                             color: Colors.white,
                                           ),
-                                        )),
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              store
+                                                  .confirmPasswordVisibleChange();
+                                            },
+                                            icon: Icon(
+                                              store.confirmPasswordVisible.value
+                                                  ? Icons
+                                                      .visibility_off_outlined
+                                                  : Icons.visibility_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                                 Container(
@@ -345,8 +342,8 @@ class _CadastroPageState extends State<CadastroPage> {
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                   ],

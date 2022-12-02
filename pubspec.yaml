@@ -27,6 +27,8 @@ dependencies:
   firebase_auth: ^4.1.4
   google_fonts: ^3.0.1
   string_validator: ^0.3.0
+  another_flushbar: ^1.12.29
+  dartz: ^0.10.1
 
 
 flutter_native_splash:

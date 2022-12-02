@@ -16,4 +16,12 @@ class AuthFirebase {
       isLoading = false;
     });
   }
+
+  _getUser() {
+    usuario = _auth.currentUser;
+  }
+
+  cadastrar(String email, String senha) async {
+    await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+  }
 }

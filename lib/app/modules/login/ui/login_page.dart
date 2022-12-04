@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:to_do_app/app/modules/login/data/datasource/login_datasource_impl.dart';
 import 'package:to_do_app/app/modules/login/presenter/controllers/login_store.dart';
+import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_impl.dart';
+import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_uc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,9 +15,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controllerSenha = TextEditingController();
   final LoginStore store = Modular.get();
+  final LoginDatasourceImpl datasourceImpl = Modular.get();
+  final LogarUsuarioUcImpl logarUsuarioUcImpl = Modular.get();
+  final controllerSenha = TextEditingController();
   final formkey = GlobalKey<FormState>();
+  final controllerLogin = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: const EdgeInsets.only(
                                       bottom: 15, right: 30, left: 20, top: 35),
                                   child: TextFormField(
+                                    controller: controllerLogin,
                                     style: const TextStyle(
                                       color: Colors.white,
                                     ),
@@ -217,8 +224,12 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () =>
-                                        Modular.to.pushNamed('/home/'),
+                                    onPressed: () {
+                                      logarUsuarioUcImpl.repository.login(
+                                          controllerLogin.text,
+                                          controllerSenha.text);
+                                      Modular.to.pushNamed('/home/');
+                                    },
                                     child: const Text(
                                       'ENTRAR',
                                       style: TextStyle(

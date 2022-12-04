@@ -3,6 +3,7 @@ import 'package:to_do_app/app/modules/login/data/datasource/login_datasource.dar
 import 'package:to_do_app/app/modules/login/domain/errors/login_errors.dart';
 
 class LoginDatasourceImpl implements LoginDatasource{
+  @override
   Future<UserCredential> login(String email, String password) async {
     try {
       return FirebaseAuth.instance

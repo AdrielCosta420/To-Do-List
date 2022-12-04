@@ -8,6 +8,11 @@ class CadastroStore {
 
   final confirmPasswordVisible = Observable<bool>(true);
 
-  void confirmPasswordVisibleChange() =>
-      runInAction(() => confirmPasswordVisible.value = !confirmPasswordVisible.value);
+  void confirmPasswordVisibleChange() => runInAction(
+      () => confirmPasswordVisible.value = !confirmPasswordVisible.value);
+
+  final isLoadingCad = Observable(true);
+
+  void isLoadingCadChange(bool value) =>
+      runInAction(() => isLoadingCad.value = value);
 }

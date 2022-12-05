@@ -1,6 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:to_do_app/app/modules/cadastro/data/datasource/cadastro_datasource_impl.dart';
+import 'package:to_do_app/app/modules/cadastro/domain/cadastro.dart';
 import 'package:to_do_app/app/modules/home/controllers/home_store.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/app/modules/home/data/datasource/home_datasource_datasource_impl.dart';
 import 'ui/atribuido_a_mim_page.dart';
 import 'ui/icon_pesquisar_page.dart';
 import 'ui/importante_page.dart';
@@ -12,7 +15,11 @@ import 'widgets/list_tile_custom_widget.dart';
 class HomePage extends StatefulWidget {
   final String title;
 
-  const HomePage({Key? key, this.title = 'HomePage'}) : super(key: key);
+  const HomePage({
+    Key? key,
+    this.title = 'HomePage',
+  }) : super(key: key);
+
   @override
   HomePageState createState() => HomePageState();
 }
@@ -22,6 +29,8 @@ List<String> todos = [];
 
 class HomePageState extends State<HomePage> {
   final HomeStore store = Modular.get();
+  final HomeDatasourceDatasourceImpl homeDatasourceDatasourceImpl =
+      Modular.get();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,7 @@ class HomePageState extends State<HomePage> {
                 ),
               ),
               subtitle: const Text(
-                'adrielsilva@hotmail.com',
+                'inserir email',
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
@@ -152,17 +161,24 @@ class HomePageState extends State<HomePage> {
             ),
             Expanded(
               flex: 1,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 0, backgroundColor: Colors.black),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 90),
-                  child: Icon(
-                    Icons.delete_outline_outlined,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Icon(
+                    Icons.logout,
                     color: Colors.red,
                   ),
-                ),
-                onPressed: () {},
+                  TextButton(
+                    child: const Text(
+                      'SAIR',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      homeDatasourceDatasourceImpl.logout();
+                      Navigator.popAndPushNamed(context, '/login/');
+                    },
+                  ),
+                ],
               ),
             ),
           ],
@@ -174,5 +190,4 @@ class HomePageState extends State<HomePage> {
   void clearText() {
     todoController.clear();
   }
-} 
-      
+}

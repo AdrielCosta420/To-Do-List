@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:string_validator/string_validator.dart' as validate;
 import 'package:to_do_app/app/modules/cadastro/controllers/cadastro_store.dart';
+import 'package:to_do_app/app/modules/cadastro/presenter/usecases/cadastrar_usuario_impl_uc.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({
@@ -16,6 +17,8 @@ class CadastroPage extends StatefulWidget {
 
 class _CadastroPageState extends State<CadastroPage> {
   final CadastroStore store = Modular.get();
+  final cadastrarUsuarioImplUc = Modular.get<CadastrarUsuarioImplUc>();
+  final controllerLogin = TextEditingController();
   final controllerSenha = TextEditingController();
   final controllerRepeteSenha = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -90,6 +93,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                   padding: const EdgeInsets.only(
                                       bottom: 15, right: 30, left: 20, top: 35),
                                   child: TextFormField(
+                                    controller: controllerLogin,
                                     keyboardType: TextInputType.emailAddress,
                                     validator: (value) {
                                       if (!validate.isEmail(value ?? '')) {
@@ -329,15 +333,32 @@ class _CadastroPageState extends State<CadastroPage> {
                                     onPressed: () {
                                       if (formKey.currentState?.validate() ??
                                           false) {
+                                        cadastrarUsuarioImplUc.repository
+                                            .cadastro(controllerLogin.text,
+                                                controllerSenha.text);
                                         Modular.to.pushNamed('/home/');
                                       }
+                                      controllerLogin.clear();
+                                      controllerSenha.clear();
+                                      controllerRepeteSenha.clear();
+                                      store.isLoadingCadChange();
                                     },
-                                    child: const Text(
-                                      'ENTRAR',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(225, 0, 0, 0),
-                                      ),
-                                    ),
+                                    child: !store.isLoadingCad
+                                        ? const Text(
+                                            'ENTRAR',
+                                            style: TextStyle(
+                                              color:
+                                                  Color.fromARGB(225, 0, 0, 0),
+                                            ),
+                                          )
+                                        : const SizedBox(
+                                            height: 24,
+                                            width: 24,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.green,
+                                              strokeWidth: 3,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ],

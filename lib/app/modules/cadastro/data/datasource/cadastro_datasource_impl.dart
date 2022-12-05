@@ -6,10 +6,10 @@ import 'package:to_do_app/app/modules/cadastro/domain/errors/cadastro_errors.dar
 
 class CadastroDatasourceImpl implements CadastroDatasource {
   final CadastroStore store = Modular.get();
-  
+
   @override
   Future<UserCredential> cadastro(String email, String senha) async {
-    store.isLoadingCadChange(true);
+    store.isLoadingCadChange();
     try {
       return FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: senha);
@@ -23,10 +23,7 @@ class CadastroDatasourceImpl implements CadastroDatasource {
       throw CadastroErrors(
           messangeError: 'Erro desconhecido ao fazer cadastro');
     }
-
   }
 
-
   
-
 }

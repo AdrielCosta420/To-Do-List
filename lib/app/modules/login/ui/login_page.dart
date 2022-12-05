@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/app/modules/login/data/datasource/login_datasource_impl.dart';
 import 'package:to_do_app/app/modules/login/presenter/controllers/login_store.dart';
 import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_impl.dart';
-import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_uc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -229,13 +228,27 @@ class _LoginPageState extends State<LoginPage> {
                                           controllerLogin.text,
                                           controllerSenha.text);
                                       Modular.to.pushNamed('/home/');
+
+                                      controllerLogin.clear();
+                                      controllerSenha.clear();
+                                      store.isLoadingChange();
                                     },
-                                    child: const Text(
-                                      'ENTRAR',
-                                      style: TextStyle(
-                                        color: Color.fromARGB(225, 0, 0, 0),
-                                      ),
-                                    ),
+                                    child: !store.isLoading
+                                        ? const Text(
+                                            'ENTRAR',
+                                            style: TextStyle(
+                                              color:
+                                                  Color.fromARGB(225, 0, 0, 0),
+                                            ),
+                                          )
+                                        : const SizedBox(
+                                            height: 24,
+                                            width: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 3,
+                                              color: Colors.green,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ],

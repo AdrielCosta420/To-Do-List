@@ -295,7 +295,8 @@ class _LoginPageState extends State<LoginPage> {
                                 // fontWeight: FontWeight.w600,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () =>
+                                Modular.to.pushNamed('/esqueceuSenha/'),
                           ),
                         ],
                       ),

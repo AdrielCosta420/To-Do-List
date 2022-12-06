@@ -1,9 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_app/app/modules/cadastro/data/datasource/cadastro_datasource_impl.dart';
-import 'package:to_do_app/app/modules/cadastro/domain/cadastro.dart';
-import 'package:to_do_app/app/modules/home/controllers/home_store.dart';
+import 'package:to_do_app/app/modules/login/domain/entities/login.dart';
+import 'controllers/home_store.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_app/app/modules/home/data/datasource/home_datasource_datasource_impl.dart';
+import 'data/datasource/home_datasource_datasource_impl.dart';
 import 'ui/atribuido_a_mim_page.dart';
 import 'ui/icon_pesquisar_page.dart';
 import 'ui/importante_page.dart';
@@ -31,6 +30,7 @@ class HomePageState extends State<HomePage> {
   final HomeStore store = Modular.get();
   final HomeDatasourceDatasourceImpl homeDatasourceDatasourceImpl =
       Modular.get();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class HomePageState extends State<HomePage> {
           children: [
             ListTile(
               title: const Text(
-                'Adriel Costa',
+                'inserir email',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     onPressed: () {
                       homeDatasourceDatasourceImpl.logout();
-                      Navigator.popAndPushNamed(context, '/login/');
+                      Navigator.popAndPushNamed(context, '/');
                     },
                   ),
                 ],

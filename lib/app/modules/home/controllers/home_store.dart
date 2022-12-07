@@ -34,4 +34,11 @@ class HomeStore {
   void corEscolhidaChange(Color value) => runInAction(
         () => corEscolhida.value = value,
       );
+
+  final _isLoadingHome = Observable<bool>(false);
+
+  bool get isLoadingHome => _isLoadingHome.value;
+
+  void isLoadingHomeChange() =>
+      runInAction(() => _isLoadingHome.value = !_isLoadingHome.value);
 }

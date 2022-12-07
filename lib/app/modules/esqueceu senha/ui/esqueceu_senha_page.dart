@@ -76,11 +76,14 @@ class EsqueceuSenhaPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 124, 98, 219),
                   ),
-                  onPressed: () => esqueceuSenhaDatasourceImpl
-                      .esqueceuSenha(email: controllerEmail.text)
-                      .then((value) {
-                    print('Email enviado com sucesso!');
-                  }).catchError((e) => print(e.toString())),
+                  onPressed: () {
+                    esqueceuSenhaDatasourceImpl
+                        .esqueceuSenha(email: controllerEmail.text)
+                        .then((value) {
+                      print('Email enviado com sucesso!');
+                    }).catchError((e) => print(e.toString()));
+                    Modular.to.pushNamed('/login/');
+                  },
                   child: const Text(
                     'ENVIAR',
                   ),

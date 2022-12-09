@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 class ListTileCustomWidget extends StatelessWidget {
-  
   IconData icon;
   Color iconColor;
   String title;
@@ -16,11 +15,9 @@ class ListTileCustomWidget extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
+    return ListTile(
       onTap: onTap,
       leading: Icon(
         icon,
@@ -28,7 +25,7 @@ class ListTileCustomWidget extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white54),
       ),
     );
   }

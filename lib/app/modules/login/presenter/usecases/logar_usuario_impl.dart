@@ -1,10 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_app/app/modules/login/domain/entities/login.dart';
-import 'package:to_do_app/app/modules/login/infra/repository/login_repository.dart';
-import 'package:to_do_app/app/modules/login/presenter/controllers/login_store.dart';
-import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_uc.dart';
+import '../../domain/entities/login.dart';
+import '../../infra/repository/login_repository.dart';
+import '../controllers/login_store.dart';
+import 'logar_usuario_uc.dart';
 
 class LogarUsuarioUcImpl implements LogarUsuarioUc {
   final repository = Modular.get<LoginRepository>();
@@ -27,7 +27,6 @@ class LogarUsuarioUcImpl implements LogarUsuarioUc {
     }, (r) {
       Modular.to.pushNamedAndRemoveUntil('/home/', (p0) => false);
     });
-
     store.isLoadingChange();
   }
 }

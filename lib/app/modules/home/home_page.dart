@@ -1,5 +1,6 @@
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
+import 'package:to_do_app/app/modules/configuracoes/ui/configuracoes_page.dart';
 import 'controllers/home_store.dart';
 import 'package:flutter/material.dart';
 import 'data/datasource/home_datasource_datasource_impl.dart';
@@ -133,14 +134,54 @@ class HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const IconPesquisarPage(),
+                  trailing: PopupMenuButton(
+                    color: const Color.fromARGB(153, 0, 0, 0),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
                       ),
                     ),
-                    color: Colors.white,
+                    child: const Icon(
+                      Icons.more_vert_outlined,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: Column(
+                          children: [
+                            ListTileCustomWidget(
+                              icon: Icons.search,
+                              iconColor: Colors.white54,
+                              title: 'Pesquisar',
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const IconPesquisarPage(),
+                                ),
+                              ),
+                            ),
+                            ListTileCustomWidget(
+                              icon: Icons.settings,
+                              iconColor: Colors.white54,
+                              title: 'Configurações',
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ConfiguracoesPage(),
+                                ),
+                              ),
+                            ),
+                            ListTileCustomWidget(
+                              icon: Icons.add,
+                              iconColor: Colors.white54,
+                              title: 'Adicionar conta',
+                              onTap: () {},
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 ListTileCustomWidget(
@@ -282,3 +323,10 @@ class HomePageState extends State<HomePage> {
     todoController.clear();
   }
 }
+
+/*
+shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),*/

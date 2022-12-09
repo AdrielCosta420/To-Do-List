@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_app/app/modules/login/data/datasource/login_datasource_impl.dart';
-import 'package:to_do_app/app/modules/login/domain/errors/login_errors.dart';
+import '../../data/datasource/login_datasource_impl.dart';
+import '../../domain/errors/login_errors.dart';
 
 class LoginRepository {
   final datasource = Modular.get<LoginDatasourceImpl>();

@@ -13,6 +13,8 @@ class LoginRepository {
       return Right(userCredential.user!);
     } on LoginErrors catch (e) {
       return Left(e);
+    } on Exception catch (_) {
+      return Left(LoginErrors(messageError: "Erro ao fazer Login"));
     }
   }
 }

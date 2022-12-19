@@ -1,4 +1,6 @@
 
+
 abstract class EsqueceuSenhaDatasource {
-  Future<void> esqueceuSenha({required String email});
+  Future<void> esqueceuSenha(String email);
+ 
 }

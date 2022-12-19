@@ -3,8 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/app/modules/login/data/datasource/login_datasource_impl.dart';
+import 'package:to_do_app/app/modules/login/domain/entities/login.dart';
 import 'package:to_do_app/app/modules/login/presenter/controllers/login_store.dart';
 import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_impl.dart';
+import 'package:to_do_app/app/modules/login/presenter/usecases/logar_usuario_uc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,8 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginStore store = Modular.get();
-  final LoginDatasourceImpl datasourceImpl = Modular.get();
-  final LogarUsuarioUcImpl logarUsuarioUcImpl = Modular.get();
+  final LogarUsuarioUc logarUsuarioUc = Modular.get();
   final controllerSenha = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final controllerLogin = TextEditingController();
@@ -79,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       child: Observer(
-                        builder: (context) {
+                        builder: (contextx) {
                           return Form(
                             child: Column(
                               children: [
@@ -226,14 +227,12 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      logarUsuarioUcImpl.repository.login(
-                                          controllerLogin.text,
-                                          controllerSenha.text);
-                                      Modular.to.pushNamed('/home/');
+                                      logarUsuarioUc(
+                                          Login(
+                                              email: controllerLogin.text,
+                                              senha: controllerSenha.text),context
+                                          );
 
-                                      controllerLogin.clear();
-                                      controllerSenha.clear();
-                                      store.isLoadingChange();
                                     },
                                     child: !store.isLoading
                                         ? const Text(

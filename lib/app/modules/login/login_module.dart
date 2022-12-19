@@ -21,7 +21,6 @@ class LoginModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (context, args) => const LoginPage()),
-        ModuleRoute('/cadastro', module: CadastroModule()),
-        ModuleRoute('/esqueceuSenha', module: EsqueceuSenhaModule()),
+        
       ];
 }

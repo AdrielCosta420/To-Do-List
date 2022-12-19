@@ -99,150 +99,150 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: Colors.black,
-      ),
-      body: Container(
-        color: Colors.black,
-        child: Column(
-          children: [
-            ListView(
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  title: const Text(
-                    'inserir nome do usuario',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 13, 241, 20),
-                    ),
-                  ),
-                  subtitle: const Text(
-                    'inserir email',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  leading: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: ClipOval(
-                      child: SizedBox.fromSize(
-                        size: const Size.fromRadius(48), // Image radius
-                        child: Image.asset('assets/images/profile.png',
-                            fit: BoxFit.cover),
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: Colors.black,
+        ),
+        body: Container(
+          color: Colors.black,
+          child: Column(
+            children: [
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                    title: const Text(
+                      'inserir nome do usuario',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 13, 241, 20),
                       ),
                     ),
-                  ),
-                  trailing: PopupMenuButton(
-                    color: const Color.fromARGB(153, 0, 0, 0),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
+                    subtitle: const Text(
+                      'inserir email',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    child: const Icon(
-                      Icons.more_vert_outlined,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        child: Column(
-                          children: [
-                            ListTileCustomWidget(
-                              icon: Icons.search,
-                              iconColor: Colors.white54,
-                              title: 'Pesquisar',
-                              onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const IconPesquisarPage(),
-                                ),
-                              ),
-                            ),
-                            ListTileCustomWidget(
-                              icon: Icons.settings,
-                              iconColor: Colors.white54,
-                              title: 'Configurações',
-                              onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ConfiguracoesPage(),
-                                ),
-                              ),
-                            ),
-                            ListTileCustomWidget(
-                              icon: Icons.add,
-                              iconColor: Colors.white54,
-                              title: 'Adicionar conta',
-                              onTap: () {},
-                            ),
-                          ],
+                    leading: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: ClipOval(
+                        child: SizedBox.fromSize(
+                          size: const Size.fromRadius(48), // Image radius
+                          child: Image.asset('assets/images/profile.png',
+                              fit: BoxFit.cover),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTileCustomWidget(
-                  icon: Icons.wb_sunny_outlined,
-                  iconColor: Colors.white,
-                  title: 'Meu Dia',
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const MeuDiaPage(),
+                      ),
+                    ),
+                    trailing: PopupMenuButton(
+                      color: const Color.fromARGB(153, 0, 0, 0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.more_vert_outlined,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: Column(
+                            children: [
+                              ListTileCustomWidget(
+                                icon: Icons.search,
+                                iconColor: Colors.white54,
+                                title: 'Pesquisar',
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const IconPesquisarPage(),
+                                  ),
+                                ),
+                              ),
+                              ListTileCustomWidget(
+                                icon: Icons.settings,
+                                iconColor: Colors.white54,
+                                title: 'Configurações',
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ConfiguracoesPage(),
+                                  ),
+                                ),
+                              ),
+                              ListTileCustomWidget(
+                                icon: Icons.add,
+                                iconColor: Colors.white54,
+                                title: 'Adicionar conta',
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-                ListTileCustomWidget(
-                  icon: Icons.star_border,
-                  iconColor: const Color.fromARGB(255, 194, 103, 212),
-                  title: 'Importante',
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const ImportantePage(),
+                  ListTileCustomWidget(
+                    icon: Icons.wb_sunny_outlined,
+                    iconColor: Colors.white,
+                    title: 'Meu Dia',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const MeuDiaPage(),
+                      ),
                     ),
                   ),
-                ),
-                ListTileCustomWidget(
-                  icon: Icons.my_library_books_outlined,
-                  iconColor: const Color.fromARGB(255, 30, 224, 238),
-                  title: 'Planejado',
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => PlanejadoPage(),
+                  ListTileCustomWidget(
+                    icon: Icons.star_border,
+                    iconColor: const Color.fromARGB(255, 194, 103, 212),
+                    title: 'Importante',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const ImportantePage(),
+                      ),
                     ),
                   ),
-                ),
-                ListTileCustomWidget(
-                  icon: Icons.person_outline_rounded,
-                  iconColor: const Color.fromARGB(255, 33, 243, 173),
-                  title: 'Atríbuido a mim',
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const AtribuidoAMimPage(),
+                  ListTileCustomWidget(
+                    icon: Icons.my_library_books_outlined,
+                    iconColor: const Color.fromARGB(255, 30, 224, 238),
+                    title: 'Planejado',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => PlanejadoPage(),
+                      ),
                     ),
                   ),
-                ),
-                ListTileCustomWidget(
-                  icon: Icons.fact_check_outlined,
-                  iconColor: const Color.fromARGB(255, 68, 125, 172),
-                  title: 'Tarefas',
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const TarefasPage(),
+                  ListTileCustomWidget(
+                    icon: Icons.person_outline_rounded,
+                    iconColor: const Color.fromARGB(255, 33, 243, 173),
+                    title: 'Atríbuido a mim',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const AtribuidoAMimPage(),
+                      ),
                     ),
                   ),
-                ),
-                /*ListTileCustomWidget(
+                  ListTileCustomWidget(
+                    icon: Icons.fact_check_outlined,
+                    iconColor: const Color.fromARGB(255, 68, 125, 172),
+                    title: 'Tarefas',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const TarefasPage(),
+                      ),
+                    ),
+                  ),
+                  /*ListTileCustomWidget(
                   icon: Icons.abc_outlined,
                   iconColor: Colors.red,
                   title: '$newTarefas',
                   onTap: () {},
                 ),*/
 
-                //TODO ADD
-                /*    ListView.builder(
+                  //TODO ADD
+                  /*    ListView.builder(
                   itemCount: newTarefas.length,
                   itemBuilder: (context, index) {
                     return ListTile(
@@ -250,73 +250,68 @@ class HomePageState extends State<HomePage> {
                     );
                   },
                 ),*/
-                const Divider(
-                  color: Colors.white,
-                  thickness: 0.2,
-                ),
-              ],
-            ),
-          ],
+                  const Divider(
+                    color: Colors.white,
+                    thickness: 0.2,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: Observer(
-        builder: (_) {
-          return Container(
-            color: Colors.black,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: FloatingActionButton.extended(
-                    onPressed: () {
-                      mostrarDialog();
-                    },
-                    icon: const Icon(
-                      Icons.add,
+        bottomNavigationBar: Container(
+          color: Colors.black,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    mostrarDialog();
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.white54,
+                    size: 30,
+                  ),
+                  label: const Text(
+                    'Nova lista',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white54,
-                      size: 30,
                     ),
-                    label: const Text(
-                      'Nova lista',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white54,
-                      ),
+                  ),
+                  backgroundColor: Colors.black,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      color: Colors.red,
                     ),
-                    backgroundColor: Colors.black,
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Icon(
-                        Icons.logout,
-                        color: Colors.red,
+                    TextButton(
+                      child: const Text(
+                        'SAIR',
+                        style: TextStyle(color: Colors.white),
                       ),
-                      TextButton(
-                        child: const Text(
-                          'SAIR',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          homeDatasourceDatasourceImpl.logout();
-                          Navigator.popAndPushNamed(context, '/');
-                          store.isLoadingHomeChange();
-                        },
-                      ),
-                    ],
-                  ),
+                      onPressed: () {
+                        homeDatasourceDatasourceImpl.logout();
+                        Navigator.popAndPushNamed(context, '/');
+                        store.isLoadingHomeChange();
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 
   void clearText() {

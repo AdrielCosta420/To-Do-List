@@ -78,9 +78,8 @@ class EsqueceuSenhaPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     esqueceuSenhaDatasourceImpl
-                        .esqueceuSenha(email: controllerEmail.text)
+                        .esqueceuSenha(controllerEmail.text)
                         .then((value) {
-                      print('Email enviado com sucesso!');
                     }).catchError((e) => print(e.toString()));
                     Modular.to.pushNamed('/login/');
                   },

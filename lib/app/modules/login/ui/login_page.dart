@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,6 +22,14 @@ class _LoginPageState extends State<LoginPage> {
   final controllerSenha = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final controllerLogin = TextEditingController();
+
+  @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      Modular.to.pushReplacementNamed('/home/');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,9 +239,8 @@ class _LoginPageState extends State<LoginPage> {
                                       logarUsuarioUc(
                                           Login(
                                               email: controllerLogin.text,
-                                              senha: controllerSenha.text),context
-                                          );
-
+                                              senha: controllerSenha.text),
+                                          context);
                                     },
                                     child: !store.isLoading
                                         ? const Text(

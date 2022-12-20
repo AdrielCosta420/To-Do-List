@@ -1,9 +1,12 @@
 import 'package:emojis/emojis.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/app/modules/home/ui/criar_task.page.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/get_all_tasks.dart';
+import 'package:to_do_app/app/modules/tasks/domain/usecases/update_task_uc.dart';
+import 'package:to_do_app/app/widgets/check_box_list_custom_widget.dart';
 import '../../../widgets/text_form_field_custom_widget.dart';
 
 class TaskPage extends StatefulWidget {
@@ -17,6 +20,7 @@ bool check = false;
 
 class _TaskPageState extends State<TaskPage> {
   final GetAllTasks getAllTasks = Modular.get();
+  final UpdateTaskUc updateTaskUc = Modular.get();
   bool checkTask = false;
 
   @override
@@ -101,7 +105,33 @@ class _TaskPageState extends State<TaskPage> {
                         itemCount: tasks.length,
                         itemBuilder: (context, index) {
                           var task = tasks[index];
-                          return Text(task.task);
+                          return GestureDetector(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ExpansionTileCard(
+                                expandedColor: Colors.red,
+                                title: Text(
+                                  task.task,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                trailing: Checkbox(
+                                  value: task.check,
+                                  onChanged: (value) => updateTaskUc.call(
+                                    task.copyWith(check: value),
+                                  ),
+                                  activeColor: Colors.green,
+                                  shape: const CircleBorder(),
+                                ),
+                                children: [
+                                  Text(task.description!),
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                  Text("data"),
+                                ],
+                              ),
+                            ),
+                          );
                         },
                       );
                     },

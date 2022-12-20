@@ -19,7 +19,7 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
   final GlobalKey keyDescription = GlobalKey<FormState>();
   final DatePickerController _controller = DatePickerController();
   final TextEditingController _textEditingController = TextEditingController();
-  final TextEditingController __textEditingControllerDescription =
+  final TextEditingController _textEditingControllerDescription =
       TextEditingController();
   final TextEditingController _controllerStartTime = TextEditingController();
   final TextEditingController _controllerEndTime = TextEditingController();
@@ -232,7 +232,7 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
               child: Form(
                 child: TextFormField(
                   key: keyDescription,
-                  controller: __textEditingControllerDescription,
+                  controller: _textEditingControllerDescription,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -272,6 +272,8 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: _controllerStartTime,
+                      keyboardType: TextInputType.datetime,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.access_time,
@@ -310,6 +312,8 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: _controllerEndTime,
+                      keyboardType: TextInputType.datetime,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.access_time,
@@ -492,7 +496,6 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     behavior: SnackBarBehavior.floating,
-                    
                     backgroundColor: Colors.red,
                     action: SnackBarAction(
                       label: '',
@@ -503,10 +506,16 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                   ),
                 );
               } else {
-                saveTaskUc.call(Tasks(task: _textEditingController.text));
+                saveTaskUc.call(
+                  task: _textEditingController.text,
+                  description: _textEditingControllerDescription.text,
+                  dataSelecionada: _selectedValue,
+                  horaFinal: _controllerEndTime.text,
+                  horaInicial: _controllerStartTime.text,
+                );
                 Modular.to.pop();
                 _textEditingController.clear();
-                __textEditingControllerDescription.clear();
+                _textEditingControllerDescription.clear();
               }
             },
           ),

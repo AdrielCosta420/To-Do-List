@@ -6,6 +6,7 @@ class Tasks {
   String? priority;
   DateTime? startDate;
   DateTime? endDate;
+  bool check;
   Tasks({
     required this.task,
     this.uuid,
@@ -13,16 +14,18 @@ class Tasks {
     this.priority,
     this.startDate,
     this.endDate,
+    this.check = false
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'uuid' : uuid,
+      'uuid': uuid,
       'task': task,
       'description': description,
       'priority': priority,
       'startDate': startDate?.millisecondsSinceEpoch,
       'endDate': endDate?.millisecondsSinceEpoch,
+      'check' : check
     };
   }
 
@@ -39,6 +42,7 @@ class Tasks {
       endDate: map['endDate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['endDate'] as int)
           : null,
+      check: map['check'] as bool,    
     );
   }
 
@@ -49,6 +53,7 @@ class Tasks {
     String? priority,
     DateTime? startDate,
     DateTime? endDate,
+    bool? check,
   }) {
     return Tasks(
       uuid: uuid ?? this.uuid,
@@ -57,7 +62,7 @@ class Tasks {
       priority: priority ?? this.priority,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      check: check ?? this.check,
     );
   }
 }
-

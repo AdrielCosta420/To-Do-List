@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emojis/emojis.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/app/modules/home/ui/criar_task.page.dart';
+import 'package:to_do_app/app/modules/login/domain/entities/usuario.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/get_all_tasks.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/update_task_uc.dart';
-import 'package:to_do_app/app/widgets/check_box_list_custom_widget.dart';
+import 'package:to_do_app/app/modules/tasks/ui/profile_page.dart';
+import 'package:to_do_app/common/constants/firebase_colections.dart';
+
 import '../../../widgets/text_form_field_custom_widget.dart';
 
 class TaskPage extends StatefulWidget {
@@ -22,6 +27,30 @@ class _TaskPageState extends State<TaskPage> {
   final GetAllTasks getAllTasks = Modular.get();
   final UpdateTaskUc updateTaskUc = Modular.get();
   bool checkTask = false;
+  Usuario usuario =
+      Usuario(nome: "", dataNascimento: DateTime.now(), email: "");
+
+  buscarUsuario() async {
+    final firestore = FirebaseFirestore.instance;
+    final auth = FirebaseAuth.instance;
+
+    final uuid = auth.currentUser?.uid;
+
+    if (uuid != null) {
+      var doc = await firestore.collection(usuariosCollection).doc(uuid).get();
+      if (doc.data() != null) {
+        setState(() {
+          usuario = Usuario.fromMap(doc.data() ?? {});
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    buscarUsuario();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +68,16 @@ class _TaskPageState extends State<TaskPage> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text(
-                    'Olá, Adriel! ${Emojis.wavingHandMediumSkinTone}',
-                    style: GoogleFonts.notoSansWarangCiti(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white,
-                      letterSpacing: 1,
+                  title: InkWell(
+                    onTap: () => print(usuario.nome),
+                    child: Text(
+                      'Olá, ${usuario.nome}! ${Emojis.wavingHandMediumSkinTone}',
+                      style: GoogleFonts.notoSansWarangCiti(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                        letterSpacing: 1,
+                      ),
                     ),
                   ),
                   trailing: SizedBox(
@@ -112,7 +144,7 @@ class _TaskPageState extends State<TaskPage> {
                                 expandedColor: Colors.red,
                                 title: Text(
                                   task.task,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
                                 trailing: Checkbox(
                                   value: task.check,
@@ -123,7 +155,7 @@ class _TaskPageState extends State<TaskPage> {
                                   shape: const CircleBorder(),
                                 ),
                                 children: [
-                                  Text(task.description!),
+                                  Text(task.description ?? '**********'),
                                   Text("data"),
                                   Text("data"),
                                   Text("data"),
@@ -142,7 +174,81 @@ class _TaskPageState extends State<TaskPage> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 10, 162, 189),
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.home_filled,
+                  size: 26,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.table_rows_outlined,
+                    color: Colors.black,
+                    size: 26,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 35),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.date_range_outlined,
+                    color: Colors.black,
+                    size: 26,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.black,
+                  size: 26,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      backgroundColor: Colors.black,
+    );
+  }
+}
+
+/////////////////
+/* 
+ Container(
         color: Colors.black,
         child: Row(
           children: [
@@ -210,7 +316,8 @@ class _TaskPageState extends State<TaskPage> {
               child: FloatingActionButton(
                 heroTag: 'btnperson',
                 backgroundColor: Colors.black,
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage())),
                 child: const Icon(
                   Icons.person_outline_rounded,
                 ),
@@ -219,24 +326,4 @@ class _TaskPageState extends State<TaskPage> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
-    );
-  }
-}
-
-/////////////////
-/* 
-FloatingActionButton(
-                    heroTag: 'btnadd',
-                    backgroundColor: Colors.transparent,
-                    //const Color.fromARGB(255, 124, 98, 219),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const CriarTaskPage(),
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      size: 35,
-                    ),
                   )*/

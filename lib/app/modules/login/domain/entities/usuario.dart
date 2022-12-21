@@ -1,13 +1,33 @@
+
 class Usuario {
   final String nome;
-  final String dataNascimento;
+  final DateTime dataNascimento;
   final String email;
-  final String senha;
+  final String? senha;
 
   Usuario({
     required this.nome,
     required this.dataNascimento,
     required this.email,
-    required this.senha,
+     this.senha,
   });
+
+
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'nome': nome,
+      'dataNascimento': dataNascimento.millisecondsSinceEpoch,
+      'email': email,
+    };
+  }
+
+  factory Usuario.fromMap(Map<String, dynamic> map) {
+    return Usuario(
+      nome: map['nome'] as String,
+      dataNascimento: DateTime.fromMillisecondsSinceEpoch(map['dataNascimento'] as int),
+      email: map['email'] as String,
+    );
+  }
+
 }

@@ -6,6 +6,9 @@ import 'package:string_validator/string_validator.dart' as validate;
 import 'package:to_do_app/app/modules/cadastro/controllers/cadastro_store.dart';
 import 'package:to_do_app/app/modules/cadastro/presenter/usecases/cadastrar_usuario_impl_uc.dart';
 
+
+import '../domain/cadastro.dart';
+
 class CadastroPage extends StatefulWidget {
   const CadastroPage({
     Key? key,
@@ -18,6 +21,7 @@ class CadastroPage extends StatefulWidget {
 class _CadastroPageState extends State<CadastroPage> {
   final CadastroStore store = Modular.get();
   final cadastrarUsuarioImplUc = Modular.get<CadastrarUsuarioImplUc>();
+  final controllerNome = TextEditingController();
   final controllerLogin = TextEditingController();
   final controllerSenha = TextEditingController();
   final controllerRepeteSenha = TextEditingController();
@@ -73,7 +77,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 child: Column(
                   children: [
                     Card(
-                      margin: const EdgeInsets.only(bottom: 80),
+                      margin: const EdgeInsets.only(bottom: 20),
                       elevation: 10,
                       color: const Color.fromARGB(6, 0, 0, 0),
                       shape: const RoundedRectangleBorder(
@@ -89,6 +93,61 @@ class _CadastroPageState extends State<CadastroPage> {
                                 AutovalidateMode.onUserInteraction,
                             child: Column(
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 30, left: 20, top: 35),
+                                  child: TextFormField(
+                                    controller: controllerNome,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    decoration: const InputDecoration(
+                                      focusColor: Colors.yellow,
+                                      focusedBorder: OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.yellow),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderSide:
+                                            BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      label: Text(
+                                        'Nome',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icon: Icon(
+                                        Icons.login,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 15, right: 30, left: 20, top: 35),
@@ -333,14 +392,13 @@ class _CadastroPageState extends State<CadastroPage> {
                                     onPressed: () {
                                       if (formKey.currentState?.validate() ??
                                           false) {
-                                        cadastrarUsuarioImplUc.repository
-                                            .cadastro(controllerLogin.text,
-                                                controllerSenha.text);
-                                        Modular.to.pushNamed('/home/');
+                                        var cadastro = Cadastro(
+                                            email: controllerLogin.text,
+                                            senha: controllerSenha.text,
+                                            nome: controllerNome.text);
+                                        cadastrarUsuarioImplUc.call(
+                                            cadastro, context);
                                       }
-                                      controllerLogin.clear();
-                                      controllerSenha.clear();
-                                      controllerRepeteSenha.clear();
                                       store.isLoadingCadChange();
                                     },
                                     child: !store.isLoadingCad
@@ -391,7 +449,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     style: GoogleFonts.macondo(color: Colors.white),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),

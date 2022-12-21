@@ -13,7 +13,7 @@ class CadastrarUsuarioImplUc implements CadastrarUsuarioUc {
   @override
   call(Cadastro cadastro, BuildContext buildContext) async {
     store.isLoadingCadChange();
-    var response = await repository.cadastro(cadastro.email, cadastro.senha);
+    var response = await repository.cadastro(cadastro.email, cadastro.senha, cadastro.nome, cadastro.dataNascimento?? DateTime.now() );
 
     response.fold((l) {
       Flushbar(
@@ -25,7 +25,7 @@ class CadastrarUsuarioImplUc implements CadastrarUsuarioUc {
         duration: const Duration(milliseconds: 3),
       );
     }, (r) {
-      Modular.to.pushNamedAndRemoveUntil('/home/', (p0) => false);
+      Modular.to.pushNamedAndRemoveUntil('/home/', (p0) => false,);
     });
     store.isLoadingCadChange();
   }

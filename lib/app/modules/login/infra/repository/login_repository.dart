@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../data/datasource/login_datasource_impl.dart';
@@ -7,14 +6,18 @@ import '../../domain/errors/login_errors.dart';
 class LoginRepository {
   final datasource = Modular.get<LoginDatasourceImpl>();
 
-  Future<Either<LoginErrors, User>> login(String email, String password) async {
+  Future<User> login(String email, String password) async {
     try {
       var userCredential = await datasource.login(email, password);
-      return Right(userCredential.user!);
+      if (userCredential.user != null) {
+        return userCredential.user!;
+      } else {
+        throw LoginErrors(messageError: 'Erro ao fazer login');
+      }
     } on LoginErrors catch (e) {
-      return Left(e);
+      rethrow;
     } on Exception catch (_) {
-      return Left(LoginErrors(messageError: "Erro ao fazer Login"));
+      throw LoginErrors(messageError: "Erro ao fazer Login");
     }
   }
 }

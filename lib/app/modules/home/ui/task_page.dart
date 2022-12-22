@@ -141,10 +141,16 @@ class _TaskPageState extends State<TaskPage> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ExpansionTileCard(
-                                expandedColor: Colors.red,
+                                baseColor:
+                                    const Color.fromARGB(200, 75, 74, 74),
+                                expandedColor:
+                                    const Color.fromARGB(200, 75, 74, 74),
                                 title: Text(
                                   task.task,
-                                  style: const TextStyle(color: Colors.red),
+                                  style: GoogleFonts.notoSansWarangCiti(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 trailing: Checkbox(
                                   value: task.check,
@@ -155,6 +161,21 @@ class _TaskPageState extends State<TaskPage> {
                                   shape: const CircleBorder(),
                                 ),
                                 children: [
+                                  const Divider(
+                                    thickness: 2,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Descrição:',
+                                        style: GoogleFonts.notoSansWarangCiti(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   Text(task.description ?? '**********'),
                                   Text("data"),
                                   Text("data"),
@@ -176,14 +197,17 @@ class _TaskPageState extends State<TaskPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        backgroundColor: const Color.fromARGB(255, 124, 98, 219),
+        onPressed: () => Modular.to.push(
+            MaterialPageRoute(builder: (context) => const CriarTaskPage())),
         child: const Icon(
           Icons.add,
-          color: Colors.black,
+          color: Colors.white,
+          size: 35,
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 10, 162, 189),
+        color: const Color.fromARGB(200, 75, 74, 74),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,6 +219,7 @@ class _TaskPageState extends State<TaskPage> {
                 onPressed: () {},
                 icon: const Icon(
                   Icons.home_filled,
+                  color: Colors.white,
                   size: 26,
                 ),
               ),
@@ -207,7 +232,7 @@ class _TaskPageState extends State<TaskPage> {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.table_rows_outlined,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 26,
                   ),
                 ),
@@ -221,7 +246,7 @@ class _TaskPageState extends State<TaskPage> {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.date_range_outlined,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 26,
                   ),
                 ),
@@ -230,10 +255,13 @@ class _TaskPageState extends State<TaskPage> {
             Expanded(
               flex: 1,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage())),
                 icon: const Icon(
                   Icons.person_outline_rounded,
-                  color: Colors.black,
+                  color: Colors.white,
                   size: 26,
                 ),
               ),

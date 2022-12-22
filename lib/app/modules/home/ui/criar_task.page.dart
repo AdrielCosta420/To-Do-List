@@ -2,7 +2,6 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/app/modules/tasks/domain/entities/task.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/save_task_uc.dart';
 import 'package:string_validator/string_validator.dart' as validate;
 

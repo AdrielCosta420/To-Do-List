@@ -23,11 +23,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-       store.isLoadingChange();
+    store.isLoadingChange();
     if (FirebaseAuth.instance.currentUser != null) {
-         Modular.to.pushReplacementNamed('/home/');
+      Modular.to.pushReplacementNamed('/home/');
     } else {
-         store.isLoadingChange();
+      store.isLoadingChange();
     }
     super.initState();
   }
@@ -44,9 +44,18 @@ class _LoginPageState extends State<LoginPage> {
               begin: Alignment.bottomLeft,
               end: Alignment.topRight,
               colors: [
-                Color.fromARGB(255, 124, 98, 219),
-                Color.fromARGB(186, 43, 190, 175),
-                Color.fromARGB(255, 124, 98, 219),
+                Color.fromARGB(255, 27, 18, 61),
+                Color.fromARGB(255, 42, 29, 92),
+                Color.fromARGB(255, 27, 18, 61),
+
+                //Color.fromARGB(185, 71, 34, 202),
+                //Color.fromARGB(255, 27, 18, 61),
+                //Color.fromARGB(255, 27, 18, 61),
+                //Color.fromARGB(255, 124, 98, 219),
+
+                // Color.fromARGB(255, 68, 20, 238),
+                //Color.fromARGB(185, 2, 17, 16),
+                // Color.fromARGB(255, 124, 98, 219),
               ],
             ),
           ),
@@ -66,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Text(
                                 'Bem vindo',
-                                style: GoogleFonts.adamina(
+                                style: GoogleFonts.notoSansWarangCiti(
                                   letterSpacing: 1,
                                   color: Colors.white,
                                   fontSize: 40,
@@ -96,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 child: Observer(
-                                  builder: (contextx) {
+                                  builder: (_) {
                                     return Form(
                                       child: Column(
                                         children: [
@@ -113,19 +122,20 @@ class _LoginPageState extends State<LoginPage> {
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               ),
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
                                                 focusColor: Colors.yellow,
                                                 focusedBorder:
-                                                    OutlineInputBorder(
+                                                    const OutlineInputBorder(
                                                   gapPadding: 20,
                                                   borderSide: BorderSide(
-                                                      color: Colors.red),
+                                                      color: Colors.white),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                     Radius.circular(20),
                                                   ),
                                                 ),
-                                                border: OutlineInputBorder(
+                                                border:
+                                                    const OutlineInputBorder(
                                                   gapPadding: 20,
                                                   borderSide: BorderSide(
                                                       color: Colors.white),
@@ -135,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                 ),
                                                 disabledBorder:
-                                                    OutlineInputBorder(
+                                                    const OutlineInputBorder(
                                                   gapPadding: 20,
                                                   borderSide: BorderSide(
                                                       color: Colors.white),
@@ -145,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                 ),
                                                 enabledBorder:
-                                                    OutlineInputBorder(
+                                                    const OutlineInputBorder(
                                                   gapPadding: 20,
                                                   borderSide: BorderSide(
                                                       color: Colors.white),
@@ -156,15 +166,15 @@ class _LoginPageState extends State<LoginPage> {
                                                 ),
                                                 hintText:
                                                     'ex: adriel@teste.com',
-                                                hintStyle: TextStyle(
+                                                hintStyle: const TextStyle(
                                                     color: Colors.white30),
                                                 label: Text(
                                                   'Email',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
+                                                  style: GoogleFonts
+                                                      .notoSansWarangCiti(
+                                                          color: Colors.white),
                                                 ),
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.login,
                                                   color: Colors.white,
                                                 ),
@@ -187,12 +197,12 @@ class _LoginPageState extends State<LoginPage> {
                                                 color: Colors.white,
                                               ),
                                               decoration: InputDecoration(
-                                                focusColor: Colors.yellow,
+                                                focusColor: Colors.white,
                                                 focusedBorder:
                                                     const OutlineInputBorder(
                                                   gapPadding: 20,
                                                   borderSide: BorderSide(
-                                                      color: Colors.yellow),
+                                                      color: Colors.white),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                     Radius.circular(20),
@@ -231,11 +241,11 @@ class _LoginPageState extends State<LoginPage> {
                                                 hintText: 'ex: ********',
                                                 hintStyle: const TextStyle(
                                                     color: Colors.white30),
-                                                label: const Text(
+                                                label: Text(
                                                   'Senha',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
+                                                  style: GoogleFonts
+                                                      .notoSansWarangCiti(
+                                                          color: Colors.white),
                                                 ),
                                                 icon: const Icon(
                                                   Icons.password,
@@ -262,7 +272,9 @@ class _LoginPageState extends State<LoginPage> {
                                             width: 300,
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 124, 98, 219),
                                                 shape:
                                                     const RoundedRectangleBorder(
                                                   borderRadius:
@@ -273,20 +285,23 @@ class _LoginPageState extends State<LoginPage> {
                                               ),
                                               onPressed: () {
                                                 logarUsuarioUc(
-                                                    Login(
-                                                        email: controllerLogin
-                                                            .text,
-                                                        senha: controllerSenha
-                                                            .text),
-                                                    context);
+                                                  Login(
+                                                      email:
+                                                          controllerLogin.text,
+                                                      senha:
+                                                          controllerSenha.text),
+                                                );
                                               },
                                               child: !store.isLoading
-                                                  ? const Text(
+                                                  ? Text(
                                                       'ENTRAR',
-                                                      style: TextStyle(
-                                                        color: Color.fromARGB(
-                                                            225, 0, 0, 0),
-                                                      ),
+                                                      style: GoogleFonts
+                                                          .notoSansWarangCiti(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                     )
                                                   : const SizedBox(
                                                       height: 24,
@@ -322,12 +337,13 @@ class _LoginPageState extends State<LoginPage> {
                                         width: 150,
                                         height: 40,
                                         child: TextButton(
-                                          child: const Text(
+                                          child: Text(
                                             'Cadastrar-se',
-                                            style: TextStyle(
-                                              color:
-                                                  Color.fromARGB(137, 0, 0, 0),
-                                              fontSize: 18,
+                                            style:
+                                                GoogleFonts.notoSansWarangCiti(
+                                              color: Colors.black,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
                                               //fontWeight: FontWeight.w700,
                                             ),
                                           ),
@@ -337,9 +353,9 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     TextButton(
-                                      child: const Text(
+                                      child: Text(
                                         'Esqueceu sua senha?',
-                                        style: TextStyle(
+                                        style: GoogleFonts.notoSansWarangCiti(
                                           color: Colors.white,
                                           fontSize: 15,
                                           // fontWeight: FontWeight.w600,
@@ -360,7 +376,8 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Text(
                               'Criado e desenvolvido por Adriel',
-                              style: GoogleFonts.macondo(color: Colors.white),
+                              style: GoogleFonts.notoSansWarangCiti(
+                                  color: Colors.white),
                             )
                           ],
                         ),

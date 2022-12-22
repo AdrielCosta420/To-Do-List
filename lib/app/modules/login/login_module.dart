@@ -1,6 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:to_do_app/app/modules/cadastro/cadastro_module.dart';
-import 'package:to_do_app/app/modules/esqueceu%20senha/esqueceu_senha_module.dart';
 import 'package:to_do_app/app/modules/login/data/datasource/login_datasource.dart';
 import 'package:to_do_app/app/modules/login/data/datasource/login_datasource_impl.dart';
 import 'package:to_do_app/app/modules/login/infra/repository/login_repository.dart';

@@ -6,7 +6,6 @@ import 'package:string_validator/string_validator.dart' as validate;
 import 'package:to_do_app/app/modules/cadastro/controllers/cadastro_store.dart';
 import 'package:to_do_app/app/modules/cadastro/presenter/usecases/cadastrar_usuario_impl_uc.dart';
 
-
 import '../domain/cadastro.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -39,10 +38,15 @@ class _CadastroPageState extends State<CadastroPage> {
               begin: Alignment.bottomLeft,
               end: Alignment.topRight,
               colors: [
-                Color.fromARGB(186, 43, 190, 175),
-                Color.fromARGB(255, 145, 126, 214),
+                Color.fromARGB(255, 27, 18, 61),
+                Color.fromARGB(255, 42, 29, 92),
+                Color.fromARGB(255, 27, 18, 61),
+
+                /* Color.fromARGB(185, 71, 34, 202),
+                Color.fromARGB(255, 27, 18, 61),
+                Color.fromARGB(255, 27, 18, 61),
                 Color.fromARGB(255, 124, 98, 219),
-                Color.fromARGB(186, 43, 190, 175),
+                //Color.fromARGB(186, 43, 190, 175),*/
               ],
             ),
           ),
@@ -56,7 +60,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   children: [
                     Text(
                       'Cadastro',
-                      style: GoogleFonts.adamina(
+                      style: GoogleFonts.notoSansWarangCiti(
                         letterSpacing: 1,
                         color: Colors.white,
                         fontSize: 40,

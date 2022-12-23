@@ -1,9 +1,11 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/save_task_uc.dart';
 import 'package:string_validator/string_validator.dart' as validate;
+import 'package:to_do_app/app/modules/tasks/presenter/controllers/tasks_store.dart';
 
 class CriarTaskPage extends StatefulWidget {
   const CriarTaskPage({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class CriarTaskPage extends StatefulWidget {
 }
 
 class _CriarTaskPageState extends State<CriarTaskPage> {
+  final TasksStore store = Modular.get();
   final SaveTaskUc saveTaskUc = Modular.get();
   final GlobalKey keyTask = GlobalKey<FormState>();
   final GlobalKey keyDescription = GlobalKey<FormState>();
@@ -69,6 +72,7 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
             child: const Icon(Icons.replay),
             onPressed: () {
               _controller.animateToSelection();
+              store.valuePriorityChange('');
             },
           )
         ],
@@ -367,60 +371,81 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(103, 255, 251, 251),
-                        elevation: 1,
-                        shadowColor: const Color.fromARGB(255, 124, 98, 219),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Alta',
-                        style: GoogleFonts.notoSansWarangCiti(
-                          fontSize: 15,
-                        ),
-                      ),
+                    child: Observer(
+                      builder: (_) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: store.valuePriority == "ALTA"
+                                ? const Color(0xfffacbba)
+                                : const Color.fromARGB(103, 255, 251, 251),
+                            elevation: 1,
+                            shadowColor:
+                                const Color.fromARGB(255, 124, 98, 219),
+                          ),
+                          onPressed: () => store.valuePriorityChange("ALTA"),
+                          child: Text(
+                            'Alta',
+                            style: GoogleFonts.notoSansWarangCiti(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(103, 255, 251, 251),
-                        elevation: 1,
-                        shadowColor: const Color.fromARGB(255, 124, 98, 219),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Média',
-                        style: GoogleFonts.notoSansWarangCiti(
-                          fontSize: 15,
-                        ),
-                      ),
+                    child: Observer(
+                      builder: (_) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: store.valuePriority == "MEDIA"
+                                ? const Color(0xffe3f2fb)
+                                : const Color.fromARGB(103, 255, 251, 251),
+                            elevation: 1,
+                            shadowColor:
+                                const Color.fromARGB(255, 124, 98, 219),
+                          ),
+                          onPressed: () {
+                            store.valuePriorityChange("MEDIA");
+                          },
+                          child: Text(
+                            'Média',
+                            style: GoogleFonts.notoSansWarangCiti(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 1,
-                        shadowColor: const Color.fromARGB(255, 124, 98, 219),
-                        backgroundColor:
-                            const Color.fromARGB(103, 255, 251, 251),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Baixa',
-                        style: GoogleFonts.notoSansWarangCiti(
-                          fontSize: 15,
-                        ),
-                      ),
+                    child: Observer(
+                      builder: (_) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 1,
+                            shadowColor:
+                                const Color.fromARGB(255, 124, 98, 219),
+                            backgroundColor: store.valuePriority == "BAIXA"
+                                ? const Color(0xfffdefff)
+                                : const Color.fromARGB(103, 255, 251, 251),
+                          ),
+                          onPressed: () => store.valuePriorityChange("BAIXA"),
+                          child: Text(
+                            'Baixa',
+                            style: GoogleFonts.notoSansWarangCiti(
+                                fontSize: 15, color: Colors.black),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 )
@@ -509,6 +534,7 @@ class _CriarTaskPageState extends State<CriarTaskPage> {
                   task: _textEditingController.text,
                   description: _textEditingControllerDescription.text,
                   dataSelecionada: _selectedValue,
+                  prioridade: store.valuePriority,
                   horaFinal: _controllerEndTime.text,
                   horaInicial: _controllerStartTime.text,
                 );

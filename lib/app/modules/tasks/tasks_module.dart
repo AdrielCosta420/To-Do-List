@@ -8,6 +8,7 @@ import 'package:to_do_app/app/modules/tasks/domain/usecases/save_task_uc.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/update_task_uc.dart';
 import 'package:to_do_app/app/modules/tasks/infra/datasources/tasks_datasource.dart';
 import 'package:to_do_app/app/modules/tasks/infra/repository/tasks_repository_impl.dart';
+import 'package:to_do_app/app/modules/tasks/presenter/controllers/tasks_store.dart';
 
 class TasksModule extends Module{
    @override
@@ -18,6 +19,7 @@ class TasksModule extends Module{
     Bind.lazySingleton<GetAllTasks>((i) => GetAllTasksImpl(),export: true),
     Bind.lazySingleton<SaveTaskUc>((i) => SaveTaskUcImpl(),export: true),
     Bind.lazySingleton<UpdateTaskUc>((i) => UpdateTaskUcImpl(),export: true),
+    Bind.lazySingleton((i) => TasksStore(), export: true),
   ];
   
 }

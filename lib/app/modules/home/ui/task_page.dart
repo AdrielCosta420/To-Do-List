@@ -9,6 +9,7 @@ import 'package:to_do_app/app/modules/home/ui/criar_task.page.dart';
 import 'package:to_do_app/app/modules/login/domain/entities/usuario.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/get_all_tasks.dart';
 import 'package:to_do_app/app/modules/tasks/domain/usecases/update_task_uc.dart';
+import 'package:to_do_app/app/modules/tasks/presenter/controllers/tasks_store.dart';
 import 'package:to_do_app/app/modules/tasks/ui/profile_page.dart';
 import 'package:to_do_app/common/constants/firebase_colections.dart';
 
@@ -26,6 +27,7 @@ bool check = false;
 class _TaskPageState extends State<TaskPage> {
   final GetAllTasks getAllTasks = Modular.get();
   final UpdateTaskUc updateTaskUc = Modular.get();
+  final TasksStore store = Modular.get();
   bool checkTask = false;
   Usuario usuario =
       Usuario(nome: "", dataNascimento: DateTime.now(), email: "");
@@ -102,8 +104,68 @@ class _TaskPageState extends State<TaskPage> {
                       Text(
                         'Tarefas de hoje',
                         style: GoogleFonts.notoSansWarangCiti(
-                          color: Colors.white60,
+                          color: Colors.white70,
                           fontSize: 25,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: PopupMenuButton(
+                            elevation: 10,
+                            color: const Color.fromARGB(209, 0, 0, 0),
+                            icon: const Icon(
+                              Icons.filter_list_alt,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: const Text(
+                                        'Ordenar por prioridade',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.priority_high,
+                                        color: Colors.red,
+                                      ),
+                                      onTap: () => Modular.to.pop(),
+                                    ),
+                                    ListTile(
+                                      title: const Text(
+                                        'Colocar em ordem alfabética',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.swap_vert_outlined,
+                                        color: Colors.green,
+                                      ),
+                                      onTap: () => Modular.to.pop(),
+                                    ),
+                                    ListTile(
+                                      title: const Text(
+                                        'Data de conclusão',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.date_range_outlined,
+                                        color: Colors.blue,
+                                      ),
+                                      onTap: () => Modular.to.pop(),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -141,8 +203,14 @@ class _TaskPageState extends State<TaskPage> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ExpansionTileCard(
-                                baseColor:
-                                    const Color.fromARGB(200, 75, 74, 74),
+                                baseColor: task.priority == "ALTA"
+                                    ? Colors.red
+                                    : task.priority == "MEDIA"
+                                        ? Colors.yellow
+                                        : task.priority == "BAIXA"
+                                            ? Colors.green
+                                            : const Color.fromARGB(
+                                                200, 75, 74, 74),
                                 expandedColor:
                                     const Color.fromARGB(200, 75, 74, 74),
                                 title: Text(
@@ -165,22 +233,53 @@ class _TaskPageState extends State<TaskPage> {
                                     thickness: 2,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Descrição:',
-                                        style: GoogleFonts.notoSansWarangCiti(
-                                          fontSize: 20,
-                                          color: Colors.white,
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16),
+                                          child: Text(
+                                            'Descrição:',
+                                            style:
+                                                GoogleFonts.notoSansWarangCiti(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
-                                      )
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          task.description ?? '',
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  Text(task.description ?? '**********'),
-                                  Text("data"),
-                                  Text("data"),
-                                  Text("data"),
-                                  Text("data"),
+                                  const Divider(
+                                    thickness: 2,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 17),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Prioridade:',
+                                          style: GoogleFonts.notoSansWarangCiti(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          task.priority ?? '',
+                                          style: const TextStyle(
+                                              color: Colors.white70),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

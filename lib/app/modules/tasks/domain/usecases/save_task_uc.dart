@@ -7,6 +7,7 @@ abstract class SaveTaskUc {
       {required String task,
       String? description,
       required DateTime dataSelecionada,
+      String? prioridade,
       String? horaInicial,
       String? horaFinal});
 }
@@ -18,6 +19,7 @@ class SaveTaskUcImpl implements SaveTaskUc {
       {required String task,
       String? description,
       required DateTime dataSelecionada,
+      String? prioridade,
       String? horaInicial,
       String? horaFinal}) async {
     var horaStartSelected = horaInicial?.split(":");
@@ -47,6 +49,7 @@ class SaveTaskUcImpl implements SaveTaskUc {
     Tasks tasks = Tasks(
       task: task,
       description: description,
+      priority: prioridade,
       startDate: dataInicial,
       endDate: dataFinal,
     );

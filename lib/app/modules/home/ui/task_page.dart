@@ -259,27 +259,6 @@ class _TaskPageState extends State<TaskPage> {
                                       ),
                                     ],
                                   ),
-                                  const Divider(
-                                    thickness: 2,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 17),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Prioridade:',
-                                          style: GoogleFonts.notoSansWarangCiti(
-                                              fontSize: 20,
-                                              color: Colors.white),
-                                        ),
-                                        Text(
-                                          task.priority ?? '',
-                                          style: const TextStyle(
-                                              color: Colors.white70),
-                                        ),
-                                      ],
-                                    ),
-                                  )
                                 ],
                               ),
                             ),

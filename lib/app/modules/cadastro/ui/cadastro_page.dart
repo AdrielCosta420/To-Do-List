@@ -450,7 +450,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 children: [
                   Text(
                     'Criado e desenvolvido por Adriel',
-                    style: GoogleFonts.macondo(color: Colors.white),
+                    style: GoogleFonts.notoSansWarangCiti(color: Colors.white),
                   )
                 ],
               ),

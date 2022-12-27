@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emojis/emojis.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +34,8 @@ class _TaskPageState extends State<TaskPage> {
   Usuario usuario =
       Usuario(nome: "", dataNascimento: DateTime.now(), email: "");
 
+  Uint8List? foto;
+
   buscarUsuario() async {
     final firestore = FirebaseFirestore.instance;
     final auth = FirebaseAuth.instance;
@@ -48,9 +52,22 @@ class _TaskPageState extends State<TaskPage> {
     }
   }
 
+  Future<void> recuperarFoto() async {
+    final storageRef = FirebaseStorage.instance
+        .ref("images")
+        .child(FirebaseAuth.instance.currentUser!.uid);
+    var uint8list = await storageRef.getData();
+    if (uint8list != null) {
+      setState(() {
+        foto = uint8list;
+      });
+    }
+  }
+
   @override
   void initState() {
     buscarUsuario();
+    recuperarFoto();
     super.initState();
   }
 
@@ -88,8 +105,12 @@ class _TaskPageState extends State<TaskPage> {
                     child: ClipOval(
                       child: SizedBox.fromSize(
                         size: const Size.fromRadius(48), // Image radius
-                        child: Image.asset('assets/images/profile.png',
-                            fit: BoxFit.cover),
+                        child: foto != null
+                            ? Image.memory(foto!, fit: BoxFit.cover)
+                            : const Icon(
+                                Icons.person,
+                                color: Colors.white,
+                              ),
                       ),
                     ),
                   ),

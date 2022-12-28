@@ -10,11 +10,13 @@ class InProgressPage extends StatefulWidget {
 class _InProgressPageState extends State<InProgressPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('In progress'),
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Você não tem tarefas em progresso',
+          style: TextStyle(fontSize: 15),
+        ),
       ),
-      body: Container(),
     );
   }
 }

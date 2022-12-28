@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:to_do_app/app/modules/home/data/datasource/home_datasource_datasource_impl.dart';
-import 'package:to_do_app/app/modules/tasks/ui/all_tasks_page.dart';
-import 'package:to_do_app/app/modules/tasks/ui/in_progress_page.dart';
+import '../../home/data/datasource/home_datasource_datasource_impl.dart';
+import 'all_tasks_page.dart';
+import 'in_progress_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final HomeDatasourceDatasourceImpl homedata = Modular.get();
   final controllerPage = PageController();
+  final controlleBttn1 = MaterialStatesController();
+  final controlleBttn2 = MaterialStatesController();
   final storageRef = FirebaseStorage.instance
       .ref("images")
       .child(FirebaseAuth.instance.currentUser!.uid);
@@ -121,6 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             Expanded(
                               child: TextButton(
+                                statesController: controlleBttn2,
                                 onPressed: () {
                                   if (!allTaskSelected) {
                                     changePage();
@@ -138,6 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Expanded(
                               child: TextButton(
+                                statesController: controlleBttn1,
                                 onPressed: () {
                                   if (!inProgressSelected) {
                                     changePage();
@@ -167,17 +172,19 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (details.delta.dx < -sensitivy) {
                                 setState(() {
                                   colorTest = Colors.green;
+                                  inProgressSelected = true;
                                 });
                               }
                             },
                             child: PageView(
+                              controller: controllerPage,
                               children: const [
                                 AllTasksPage(),
                                 InProgressPage(),
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -203,7 +210,10 @@ Widget backgrounSuperior(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height - 200,
-    color: Colors.white,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15),
+    ),
   );
 }
 
